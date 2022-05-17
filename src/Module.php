@@ -5,34 +5,29 @@ declare(strict_types=1);
 namespace PoP\RootWP;
 
 use Brain\Cortex;
-use PoP\Root\Component\AbstractComponent;
+use PoP\Root\Module\AbstractModule;
 use PoP\Root\Environment;
 
-/**
- * Initialize component
- */
-class Component extends AbstractComponent
+class Module extends AbstractModule
 {
     /**
-     * Classes from PoP components that must be initialized before this component
-     *
      * @return string[]
      */
-    public function getDependedComponentClasses(): array
+    public function getDependedModuleClasses(): array
     {
         return [
-            \PoP\Root\Component::class,
+            \PoP\Root\Module::class,
         ];
     }
 
     /**
      * Initialize services
      *
-     * @param string[] $skipSchemaComponentClasses
+     * @param string[] $skipSchemaModuleClasses
      */
     protected function initializeContainerServices(
         bool $skipSchema,
-        array $skipSchemaComponentClasses,
+        array $skipSchemaModuleClasses,
     ): void {
         /**
          * Do not enable services when running PHPUnit tests
@@ -63,7 +58,7 @@ class Component extends AbstractComponent
         $this->initSystemServices(dirname(__DIR__), '', 'hybrid-services.yaml');
     }
 
-    public function componentLoaded(): void
+    public function moduleLoaded(): void
     {
         /**
          * Do not enable services when running PHPUnit tests
